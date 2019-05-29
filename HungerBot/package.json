@@ -1,0 +1,10 @@
+{
+    "name": "HungerBot",
+    "version": "1.0.0",
+    "description": "Let's kill everyone",
+    "main": "bot.js",
+    "author": "4kha",
+    "dependencies": {
+        "discord.js": "^11.5.0"
+    }
+}
