@@ -7,43 +7,47 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if (msg.content.substring(0, 3) == "!h ") {
-      console.log(msg.content);
+  if (msg.content.startsWith("h!")) {
+    let msga = client.channels.get(msg.channel.id);
+    let command = msg.content.split(' ')[0].substring(2).toLowerCase();
+    let argument = msg.content.substring(2 + command.length).trimLeft();
+    console.log(msg.author.username + ": " + command);
 
-      let msga = client.channels.get(msg.channel.id); // Replace with known channel ID
-      let command = msg.content.substring(3);
+    switch (command) {
+      case 'ping' :
+        msga.send("Pong!");
+        break;
+      case 'avatar' :
+        msga.send("https://cdn.discordapp.com/avatars/" + msg.author.id + "/" + msg.author.avatar + ".png?size=256");
+        break;
+      case 'hungry' :
+        msg.reply(HBfeature.txtFood(HBfeature.hungry()));
+        break;
+      case 'help' :
+        msga.send(HBfeature.help);
+        break;
 
-      console.log(command); 
-      switch (command.toLowerCase()) {
-          case 'ping' :
-            msga.send("Pong!");
-            break;
-          case 'avatar' :
-            msga.send("https://cdn.discordapp.com/avatars/" + msg.author.id + "/" + msg.author.avatar + ".png?size=256");
-            break;
-          case 'hungry' :
-            msg.reply(HBfeature.txtFood(HBfeature.hungry()));
-            break;
-          case 'foodlist' :
-            msg.reply("So we have: " + HBfeature.foodList());
-            break;
-          case 'help' :
-            msg.reply(HBfeature.help);
-            break;
+      case 'listfood' :
+        msg.reply("So we have: " + HBfeature.foodList());
+        break;
+      case 'addfood' :
+        if (HBfeature.addFood(argument))
+          msg.reply(argument + " have been added");
+        else
+          msg.reply("Usage: h!addfood [argument]");
+        break;
+      case 'delfood' :
+        if (HBfeature.delFood(argument))
+          msg.reply(argument + " have been removed");
+        else
+          msg.reply("Usage: h!delfood [argument]");
+        break;
+      case 'cook' :
+          msg.reply(HBfeature.cookFood());
       }
-      if (command.substring(0, 8).toLowerCase() === 'addfood ')
-      {
-            HBfeature.addFood(command.substring(8));
-            msg.reply(command.substring(8) + " have been added");
-      }
-      else if (command.substring(0, 8).toLowerCase() === 'delfood ')
-      {
-          HBfeature.delFood(command.substring(8));
-          msg.reply(command.substring(8) + " have been removed");
-      }
-    
-//      msg.reply("No u");
     }
+    else if (msg.content.toLowerCase() === "bot is gay")
+      msg.reply("no u");
 });
 
 
