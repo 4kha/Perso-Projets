@@ -1,5 +1,5 @@
 const fs = require('fs') 
-const commandHelp = ["__Hungerbot 0.3 *by 4shin*__",
+const commandHelp = ["__Hungerbot 0.4 *by 4shin*__",
     "**Hungry**: Give you a random meal",
     "**AddFood**: Add a new meal",
     "**Delfood**: Remove a meal",
@@ -7,10 +7,11 @@ const commandHelp = ["__Hungerbot 0.3 *by 4shin*__",
     "**Cook**: Make a food abomination\n",
  
     "**MagicBall**: Anwser questions",
-    "**Hands: You get hands**",
+    "**Hands:** You get hands",
     "**Avatar**: Give your avatar in a 256px res",
     "**Ping**: Pong"]
 const foodlistP = './features/Foodlist.txt';
+const botKiller = './features/BotKiller.txt';
 
 function UpFirst(string) 
 {
@@ -86,8 +87,15 @@ const feature = {
         var responses = ["It is certain", "Without a doubt", "You may rely on it", "Most likely", "Yes",
         "Signs point to yes", "Better not tell you now", "Don't count on it", "My reply is no", "My sources say no",
         "Outlook not so good", "Very doubtful"];
-		return(question, " " + responses[Math.floor(Math.random() * (responses.length))]);
-    }
+		return(question, " " + responses[Math.floor(Math.random() * (responses.length))]);},
+    killBot(killer) {
+        let textKiller = fs.readFileSync(botKiller) + '';
+        let killerBoard = [];
+        killerBoard = textKiller.split('\n');
+        killerBoard.push(killer);
+        textKiller = killerBoard.join('\n');
+        fs.writeFile(botKiller, textKiller, (err) => {
+        if (err) console.log(err);} )}
 }
 
 module.exports = feature;
