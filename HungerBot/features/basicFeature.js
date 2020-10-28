@@ -6,7 +6,7 @@ const commandHelp = ["__Hungerbot 0.4 *by 4shin*__",
     "**Cook**: Make a food abomination\n",
  
     "**MagicBall**: Anwser questions",
-    "**Hands:** You get hands",
+    "**Hands:** You get hands (not avariable yet)",
     "**Avatar**: Give your avatar in a 256px res",
     "**Ping**: Pong"]
 
