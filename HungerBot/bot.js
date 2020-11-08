@@ -13,10 +13,19 @@ client.on('message', msg => {
 
   if (msg.channel.name.indexOf('bot') != -1 && msg.content.startsWith("h!")) {
     if (msg.author.bot) return;
-    let msga = client.channels.get(msg.channel.id);
+    //console.log("\n\nChannel\n\n");
+    //console.log(msg.channel);
+
+    //console.log("\n\nClient\n\n");
+    //console.log(client.channels);
+
+    let msga = msg.channels;
+
+    //console.log("\n\nDone\n\n");
+
     let command = msg.content.split(' ')[0].substring(2).toLowerCase();
     let argument = msg.content.substring(2 + command.length).trimLeft();
-    let pinged = msg.guild.member(msg.mentions.users.first() || msg.guild.members.get(argument));
+    let pinged = msg.guild.member(msg.mentions.users.first()/* || msg.guild.members.get(argument)*/);
 
     console.log(msg.author.username + ": " + command);
     switch (command) {
@@ -50,6 +59,9 @@ client.on('message', msg => {
           msg.reply(HBfeature.cookFood());
           break;
       case 'magicball' :
+          msg.reply(HBfeature.magicBall(argument));
+          break;
+      case 'mb' :
           msg.reply(HBfeature.magicBall(argument));
           break;
       case 'killbot' :
